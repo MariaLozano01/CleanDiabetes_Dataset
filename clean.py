@@ -1,27 +1,37 @@
 import pandas as pd
 import numpy as np
-upload = pd.read_csv('original/diabetic_data.csv', na_values = '?') #replace '?' values for NaN
+upload = pd.read_csv('original/diabetic_data.csv') #upload dataset
 print(upload)
+
+upload = upload.replace("?", np.nan)  #replace '?' values for NaN
+print(upload)
+upload["weight"]
+
+upload.drop_duplicates() #drop duplicates in the dataset 
 
 #drop rows with missing values
 upload = upload.dropna()
-upload
 
-upload.columns #check columns in the dataset for refeerence 
+#remove white spaces from values to prevent future inconvinience during analysis 
+upload['diag_1'].str.strip()
+upload['diag_2'].str.strip()
+upload['diag_3'].str.strip()
+
+#check column names in the dataset for reference 
+upload.columns 
+upload.count
 upload.loc[:,"weight"]
-upload
+
+#########################################
+### Change data types to correct ones ###
+#########################################
+
+upload.dtypes 
 
 
-countRows, countColumns = upload.shape #This line assigns names to each value
-countRows #Ran it to be able to see the number of rows in our dataset
-countColumns #Ran it to be able to see the number of columns in our dataset
-
-#Change data types to correct ones 
-#
-#Step 3 provides column names
-list(upload)
 #Step 4 cleans column names
 upload.columns = upload.columns.str.replace('[^A-Za-z0-9]+', '_')
+
 #Step 5 cleans the strings that might exist within each column
 strings = upload.select_dtypes(include=['object']).columns
 strings
@@ -33,17 +43,6 @@ numbers
 booleans = upload.select_dtypes(include=['bool']).columns
 booleans
 
-#rows with with missing values 
-upload = upload.dropna()
-
-upload.dtypes 
-
-#Step 8 Look for duplicate rows and remove any duplicate rows
-
-print(upload.duplicated()) #this line is to see which columns have suplicates
-print(upload.duplicated().sum()) #This line is to define how many duplicates there are
-
-#The record has no duplicates to remove 
 
 #Step 9 count of missing values per column
 upload.isnull().sum() 
