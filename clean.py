@@ -3,8 +3,9 @@ import numpy as np
 upload = pd.read_csv('original/diabetic_data.csv') #upload dataset
 print(upload)
 
-upload = upload.replace("?", np.nan) #replace '?' values for NaN
-print(upload)
+upload = upload.replace('?', '999') #replace '?' values for NaN 
+
+upload = upload.replace('NULL', '999') #replace 'NULL' values for 999
 
 upload = upload.drop(columns=['payer_code'])
 
@@ -12,7 +13,7 @@ upload = upload.drop(columns=['payer_code'])
 upload.drop_duplicates()
 
 #drop rows with missing values
-upload = upload.dropna()
+#upload = upload.dropna()
 
 #remove white spaces from values to prevent future inconvinience during analysis 
 upload['diag_1'].str.strip()
@@ -87,7 +88,7 @@ upload.dtypes
 upload['encounter_id'].value_counts() #Unique identifiers
 upload['patient_nbr'].value_counts() #Unique identifiers
 upload['race'].value_counts() #race
-upload['gender'].value_counts() #Unique identifiers
+upload['gender'].value_counts() 
 upload['age'].value_counts() #age ranges
 upload['weight'].value_counts() #Unique identifiers
 upload['admission_type_id'].value_counts() #Unique identifiers
